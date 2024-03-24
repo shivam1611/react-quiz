@@ -4,11 +4,14 @@ import "./App.css";
 import Header from "./Header";
 import Loader from "./Loader";
 import StartScreen from "./StartScreen";
+import Error from "./Error";
+import Question from "./Question";
 
 function App() {
   const initialState = {
-    questions: [],
+    question: [],
     status: "loading",
+    index: 0
   };
 
   function reducer(state, action) {
@@ -16,28 +19,39 @@ function App() {
       case "dataRecieved":
         return {
           ...state,
-          questions: action.payload,
+          question: action.payload,
           status:"ready"
-        };
+        }
+        case "active":
+          return{
+            ...state,
+            status:"active"
+          }
+
 
       default:
         throw new Error("Action Unknown");
     }
   }
 
-  const [{question ,status}, dispatch] = useReducer(reducer, initialState);
+  const [{question ,status, index}, dispatch] = useReducer(reducer, initialState);
+
 
   useEffect(function () {
     fetch("http://localhost:9000/questions")
       .then((res) => res.json())
       .then((data) => dispatch({ type: "dataRecieved", payload: data }))
-      .catch((err) => console.log(err));
-  });
+      .catch((err) => dispatch({type:"error"}));
+  },[]);
+  const length = question?.length;
   return (
     <div className="App">
       <Header />
       {status === "loading" && <Loader/>}
-      {status === "ready" && <StartScreen/>}
+      {status === "ready" && <StartScreen length = {length} status = {status} dispatch={dispatch}/>}
+      {status === "error" && <Error/>}
+      {status === "active" && <Question question = {question[index]}/>}
+     
     
       
     </div>
