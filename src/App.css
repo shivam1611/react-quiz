@@ -67,7 +67,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 .error-component {
@@ -194,5 +194,13 @@ body {
   color: rgb(242, 242, 242);
   border: none;
   /* transform: scale(1.1); */
-  
+}
+
+.correct-answer-styling {
+  background-color: rgb(98, 218, 98);
+  color: white;
+}
+.wrong-answer-styling {
+  background-color: rgb(255, 102, 102);
+  color: white;
 }

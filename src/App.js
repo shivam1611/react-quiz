@@ -11,7 +11,8 @@ function App() {
   const initialState = {
     question: [],
     status: "loading",
-    index: 0
+    index: 0,
+    selectedAnswer : null
   };
 
   function reducer(state, action) {
@@ -27,6 +28,10 @@ function App() {
             ...state,
             status:"active"
           }
+          case "newAnswer":
+            return {
+              ...state,
+            }
 
 
       default:
@@ -34,7 +39,7 @@ function App() {
     }
   }
 
-  const [{question ,status, index}, dispatch] = useReducer(reducer, initialState);
+  const [{question ,status, index, selectedAnswer}, dispatch] = useReducer(reducer, initialState);
 
 
   useEffect(function () {
@@ -50,7 +55,7 @@ function App() {
       {status === "loading" && <Loader/>}
       {status === "ready" && <StartScreen length = {length} status = {status} dispatch={dispatch}/>}
       {status === "error" && <Error/>}
-      {status === "active" && <Question question = {question[index]}/>}
+      {status === "active" && <Question question = {question[index]} dispatch={dispatch}/>}
      
     
       
