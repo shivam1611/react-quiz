@@ -8,9 +8,9 @@ function Result({ points, totalScore, highScore , dispatch}) {
     <div className="result-container">
       <img src={Student} alt="" className="start-img" />
       <p className="remark">
-        { percentage > 30 && "You need a great practice!! 🎖️ "}
-        {percentage > 70 && "You had a greate Score!! 🥇 "}
-        {percentage === 0  && "You scored very poor🫤"}
+        {  percentage < 50 && "You need a Great Practice!! 👍 "}
+        { 50 < percentage  && "You had a Great Score!! 🥇 "}
+        
       </p>
       <p className="score-text">
         You gained <span className="special-text">{points} </span>marks out of{" "}

@@ -13,6 +13,7 @@ import Result from "./Result";
 import Student from './student.png'
 
 function App() {
+  const TOTAL_TIME_PER_QUESTION =  20
   const initialState = {
     question: [],
     status: "loading",
@@ -20,12 +21,13 @@ function App() {
     selectedAnswer: null,
     highScore : 0,
     points: 0,
+    secondsRemaining : null
   };
 
   function reducer(state, action) {
     switch (action.type) {
       case "dataRecieved":
-        console.log(action.payload);
+        
         return {
           ...state,
           question: action.payload,
@@ -35,6 +37,7 @@ function App() {
         return {
           ...state,
           status: "active",
+          secondsRemaining: state.question.length * TOTAL_TIME_PER_QUESTION
         };
       case "newAnswer":
         const question = state.question.at(state.index);
@@ -63,12 +66,16 @@ function App() {
             return{
               ...initialState, status:"ready", question : state.question
             }
+            case "ticking":
+              return{...state, secondsRemaining: state.secondsRemaining  - 1, status: state.secondsRemaining === 0 ? "finished" : state.status
+
+              }
       default:
         throw new Error("Action Unknown");
     }
   }
 
-  const [{ question, status, index, selectedAnswer, points, highScore }, dispatch] =
+  const [{ question, status, index, selectedAnswer, points, highScore, secondsRemaining }, dispatch] =
     useReducer(reducer, initialState);
 
   useEffect(function () {
@@ -95,6 +102,8 @@ function App() {
       {status === "active" && (
         <div className="main-container">
           <TopContainer
+          dispatch={dispatch}
+          secondsRemaining={secondsRemaining}
             className="progress-container"
             questionLength={questionLength}
             points={points}

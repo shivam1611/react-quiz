@@ -8,7 +8,7 @@ function Header() {
     
     >
         <img src={titleImg} alt="react quicc app" className='title-img' id='react-quizz-title' />
-        <h1 className='title-text'>React Quizz App</h1>
+        <h1 className='title-text'>React Quiz App</h1>
     </div>
   )
 }
