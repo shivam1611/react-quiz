@@ -18,6 +18,7 @@ function App() {
     status: "loading",
     index: 0,
     selectedAnswer: null,
+    highScore : 0,
     points: 0,
   };
 
@@ -55,14 +56,19 @@ function App() {
         case "finished" :
           return{
             ...state,
-            status : "finished"
+            status : "finished",
+            highScore: state.points > state.highScore ? state.points : state.highScore
           }
+          case "restart":
+            return{
+              ...initialState, status:"ready", question : state.question
+            }
       default:
         throw new Error("Action Unknown");
     }
   }
 
-  const [{ question, status, index, selectedAnswer, points }, dispatch] =
+  const [{ question, status, index, selectedAnswer, points, highScore }, dispatch] =
     useReducer(reducer, initialState);
 
   useEffect(function () {
@@ -107,7 +113,7 @@ function App() {
         </div>
       )}
       {
-        status === "finished" && <Result points = {points} totalScore = {totalScore}/>
+        status === "finished" && <Result points = {points} totalScore = {totalScore} highScore={highScore} dispatch={dispatch}/>
       }
     </div>
   );
