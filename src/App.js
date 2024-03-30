@@ -12,7 +12,8 @@ function App() {
     question: [],
     status: "loading",
     index: 0,
-    selectedAnswer : null
+    selectedAnswer: null,
+    points: 0,
   };
 
   function reducer(state, action) {
@@ -21,44 +22,65 @@ function App() {
         return {
           ...state,
           question: action.payload,
-          status:"ready"
-        }
-        case "active":
-          return{
+          status: "ready",
+        };
+      case "active":
+        return {
+          ...state,
+          status: "active",
+        };
+      case "newAnswer":
+        const question = state.question.at(state.index);
+        return {
+          ...state,
+          selectedAnswer: action.payload,
+          state:
+            action.payload === question.correctOption
+              ? (state.points = state.points +  question.points )
+              : state.points,
+              
+        };
+
+        case "nextQuestion":
+          return {
             ...state,
-            status:"active"
+            index: state.index + 1,
+            selectedAnswer : null
           }
-          case "newAnswer":
-            return {
-              ...state,
-            }
-
-
       default:
         throw new Error("Action Unknown");
     }
   }
 
-  const [{question ,status, index, selectedAnswer}, dispatch] = useReducer(reducer, initialState);
-
+  const [{ question, status, index, selectedAnswer }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   useEffect(function () {
     fetch("http://localhost:9000/questions")
       .then((res) => res.json())
       .then((data) => dispatch({ type: "dataRecieved", payload: data }))
-      .catch((err) => dispatch({type:"error"}));
-  },[]);
+      .catch((err) => dispatch({ type: "error" }));
+  }, []);
   const length = question?.length;
   return (
     <div className="App">
       <Header />
-      {status === "loading" && <Loader/>}
-      {status === "ready" && <StartScreen length = {length} status = {status} dispatch={dispatch}/>}
-      {status === "error" && <Error/>}
-      {status === "active" && <Question question = {question[index]} dispatch={dispatch}/>}
-     
-    
-      
+      {status === "loading" && <Loader />}
+      {status === "ready" && (
+        <StartScreen length={length} status={status} dispatch={dispatch} />
+      )}
+      {status === "error" && <Error />}
+      {status === "active" && (
+        <Question
+          question={question[index]}
+          dispatch={dispatch}
+          selectedAnswer={selectedAnswer}
+         
+          
+        />
+      )}
     </div>
   );
 }
