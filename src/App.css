@@ -137,7 +137,7 @@ body {
   width: 10rem;
   border-radius: 20rem;
   height: 2.5rem;
-  margin-top: 4rem;
+  margin-top: 2rem;
   font-size: 1.1rem;
   border: none;
   background-color: #3c9091;
@@ -247,16 +247,47 @@ body {
   height: 1.2rem;
   border-radius: 1rem;
 }
-.progress-bar{
+.progress-bar {
   background-color: #00d8ff;
   height: 100%;
   border-radius: 1rem;
-  transition: all .5s ease-out;
+  transition: all 0.5s ease-out;
 }
-.details{
+.details {
   background-color: #2d7576;
   color: white;
-  padding: .5rem;
+  padding: 0.5rem;
   margin-top: 1rem;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
+}
+
+.start-img {
+  width: 12rem;
+  display: block;
+  /* background-color: green; */
+  margin-inline: auto;
+  margin-top: 1rem;
+}
+
+.remark {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  font-weight: 600;
+  color: #2d7576;
+  padding: 0.5rem;
+  letter-spacing: 2px;
+}
+.score-text {
+  font-size: 1.1rem;
+  /* margin-top: 1rem; */
+  color: #1d1d1d;
+  width: 17rem;
+  text-align: center;
+  padding: 1rem;
+  margin: 1rem auto;
+}
+.special-text{
+  font-size: 1.3rem;
+  color: #2c6768;
+  font-weight: 700;
 }

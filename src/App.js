@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from "react";
 import "./App.css";
+import motion from 'framer-motion'
 
 import Header from "./Header";
 import Loader from "./Loader";
@@ -8,6 +9,8 @@ import Error from "./Error";
 import Question from "./Question";
 import ProgessBar from "./ProgessBar";
 import TopContainer from "./TopContainer";
+import Result from "./Result";
+import Student from './student.png'
 
 function App() {
   const initialState = {
@@ -49,6 +52,11 @@ function App() {
           index: state.index + 1,
           selectedAnswer: null,
         };
+        case "finished" :
+          return{
+            ...state,
+            status : "finished"
+          }
       default:
         throw new Error("Action Unknown");
     }
@@ -90,12 +98,17 @@ function App() {
           />
 
           <Question
+          index  ={index}
+          questionLength = {questionLength}
             question={question[index]}
             dispatch={dispatch}
             selectedAnswer={selectedAnswer}
           />
         </div>
       )}
+      {
+        status === "finished" && <Result points = {points} totalScore = {totalScore}/>
+      }
     </div>
   );
 }
