@@ -1,13 +1,20 @@
 import React from "react";
 
-function Option({ dispatch, question, selectedAnswer }) {
-  const hasAnswered = selectedAnswer !== null
+function Option({ dispatch, question, selectedAnswer, hasAnswered }) {
+  
   return (
     <div className="  ">
       {question?.options?.map((option, index) => (
         <button
-          className={`${hasAnswered ? index === selectedAnswer ? "left-shifted" : "" : ""} ${hasAnswered ?  index === question.correctOption ? "correct-answer-styling" : "wrong-answer-styling" : "" } option-component`}
-          dispatch={dispatch}
+          className={`${
+            hasAnswered ? (index === selectedAnswer ? "left-shifted" : "") : ""
+          } ${
+            hasAnswered
+              ? index === question.correctOption
+                ? "correct-answer-styling"
+                : "wrong-answer-styling"
+              : ""
+          } option-component`}
           disabled={selectedAnswer !== null}
           option={option}
           key={option}
