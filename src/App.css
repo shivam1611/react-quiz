@@ -199,7 +199,7 @@ body {
   user-select: none;
 }
 .option-component:hover {
-  /* cursor: pointer; */
+  cursor: pointer;
 }
 .left-shifted {
   margin-left: 1.4rem;
@@ -393,7 +393,8 @@ body {
   justify-content: center;
   padding: 0;
   margin-inline: auto;
-  width: 80%;
+  width: 95%;
+  font-size: .8rem;
 }
 /* .option-section{
   display: flex;
