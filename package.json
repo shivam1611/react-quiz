@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run react-app\" ",
-    "react-app": "react-scripts start",
+    "react-app": " set PORT=8080 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
